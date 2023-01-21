@@ -1,0 +1,31 @@
+<!-- Search -->
+<div class="row d-flex justify-content-center m-3">
+  <div class="col-6">
+    <div class="input-group">
+      <input [(ngModel)]="keyword" (keydown.enter)="search()" class="form-control" placeholder="Food Name"/>
+      <button (click)="search()" type="button" class="btn btn-primary">
+        Search
+      </button>
+    </div>
+  </div>
+</div>
+<!-- content -->
+<div class="col-12" *ngIf="foods && foods.length > 0">
+  <div class="d-flex flex-wrap justify-content-center">
+    <div class="card col-2 m-2" *ngFor="let food of foods">
+      <img class="card-img-top" [src]="food.imageUrl" [alt]="food.name">
+      <div class="card-body">
+        <h5 class="card-title text-truncate">{{food.name}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{food.price | currency}}</h6>
+        <a routerLink="food/{{food.id}}" class="btn btn-secondary mt-1 me-1">More</a>
+        <a (click)="addToCart(food)" class="btn btn-outline-primary mt-1"><i class="fa-solid fa-cart-plus"></i> Add to cart</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- not found -->
+<div class="row" *ngIf="!foods || foods.length == 0">
+  <div class="d-flex flex-wrap justify-content-center mt-3">
+    <h3>Not Found</h3>
+  </div>
+</div>

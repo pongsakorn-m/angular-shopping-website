@@ -1,0 +1,19 @@
+<div class="d-flex justify-content-center" *ngIf="food">
+  <div class="container d-flex">
+    <div class="col-6">
+      <img [src]="food.imageUrl" [alt]="food.name" class="rounded img-fluid" alt="Responsive image">
+    </div>
+    <div class="col-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <h2 class="card-title">{{food.name}}</h2>
+          <h5 class="card-subtitle mb-2 text-muted">{{food.price | currency}}</h5>
+          <p class="card-text">{{food.description}}</p>
+          <a (click)="addToCart()" class="btn btn-outline-primary"><i class="fa-solid fa-cart-plus"></i> Add to cart</a>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

@@ -1,0 +1,41 @@
+
+
+<div class="modal-header">
+  <h5 class="modal-title">Add to cart</h5>
+  <button type="button" class="close" data-dismiss="modal" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="d-flex" *ngIf="initialData">
+    <div class="">
+      <div class="col-12">
+        <img [src]="initialData.imageUrl" [alt]="initialData.name" class="rounded img-fluid cursor-pointer" alt="Responsive image">
+      </div>
+      <div class="col-12">
+        <div class="card h-100">
+          <div class="card-body">
+            <h2 class="card-title">{{initialData.name}} </h2>
+            <h5 class="card-subtitle mb-2 text-muted">Price: {{initialData.price | currency}}</h5>
+            <h5 class="card-subtitle mb-2 text-muted">Quantity</h5>
+
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <button class="btn btn-primary" [disabled]="quantity <= 1" (click)="quantity = quantity-1"><i class="fa-solid fa-minus"></i></button>
+              </div>
+              <input class="form-control text-center" [(ngModel)]="quantity" aria-label="" aria-describedby="basic-addon1">
+              <div class="input-group-append">
+                <button class="btn btn-primary" (click)="quantity = quantity+1"><i class="fa-solid fa-plus"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="addToCart()"><i class="fa-solid fa-cart-plus"></i> Add to cart</button>
+</div>

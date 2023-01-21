@@ -1,0 +1,41 @@
+<div *ngIf="cart.totalQty">
+  <div class="row mb-3" *ngFor="let item of cart.items">
+    <div class="d-flex justify-content-center" *ngIf="item">
+      <div class="container d-flex">
+        <div class="col-6">
+          <img (click)="viewItem(item)" [src]="item.imageUrl" [alt]="item.name" class="rounded img-fluid cursor-pointer" alt="Responsive image">
+        </div>
+        <div class="col-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h2 class="card-title">{{item.name}} </h2>
+              <h5 class="card-subtitle mb-2 text-muted">Price Per Item: {{item.price | currency}}</h5>
+              <h5 class="card-subtitle mb-2 text-muted">Quantity</h5>
+
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <button class="btn btn-primary" [disabled]="item.qty <= 1" (click)="downQuantity(item)"><i class="fa-solid fa-minus"></i></button>
+                </div>
+                <input class="form-control text-center" [(ngModel)]="item.qty" aria-label="" aria-describedby="basic-addon1">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" (click)="addQuantity(item)"><i class="fa-solid fa-plus"></i></button>
+                </div>
+              </div>
+
+              <h5 class="card-subtitle mb-2 text-muted">Total Item Price: {{item.priceAmount | currency}}</h5>
+              <a class="btn btn-outline-danger" (click)="removeItem(item)"><i class="fa-solid fa-trash"></i> Remove</a>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="!cart.totalQty">
+  <div class="d-flex flex-wrap justify-content-center mt-3">
+    <h3>Not Found</h3>
+  </div>
+</div>
