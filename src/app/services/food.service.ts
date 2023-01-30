@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { sample_foods } from 'src/data';
+import { BASE_URL } from '../shared/cosnstants/url';
 import { Food } from '../shared/models/Food';
 
 @Injectable({
@@ -7,18 +10,18 @@ import { Food } from '../shared/models/Food';
 })
 export class FoodService {
 
-  constructor() {
+  constructor(private httpClient: HttpClient) {
   }
 
-  getAll(): Food[] {
-    return sample_foods;
+  getAll(): Observable<Food[]> {
+    return this.httpClient.get<Food[]>(BASE_URL + "/foods");
   }
 
-  getByKeyword(keyword: string): Food[] {
-    return this.getAll().filter(food => food.name.toLowerCase().includes(keyword.toLowerCase()));
+  getByKeyword(keyword: string): Observable<Food[]> {
+    return this.httpClient.get<Food[]>(BASE_URL + "/foods/search", { params: { keyword: keyword } });
   }
 
-  getFoodByFoodId(foodId: string): Food | undefined {
-    return sample_foods.find(food => food.id == foodId);
+  getFoodByFoodId(foodId: string):  Observable<Food> {
+    return this.httpClient.get<Food>(BASE_URL + "/foods/getFoodByFoodId" + foodId);
   }
 }

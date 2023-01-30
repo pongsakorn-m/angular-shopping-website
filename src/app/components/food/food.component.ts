@@ -18,7 +18,9 @@ export class FoodComponent implements OnInit {
               private toastr: ToastrService) {
     const foodId = this.actRoute.snapshot.paramMap.get('foodId');
     if (foodId) {
-      this.food = this.foodService.getFoodByFoodId(foodId)
+      this.foodService.getFoodByFoodId(foodId).subscribe(res => {
+        this.food =  res;
+      })
     }
   }
 

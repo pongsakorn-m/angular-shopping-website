@@ -18,11 +18,15 @@ export class HomeComponent implements OnInit {
               private modal: NgbModal) {
 
     let keyword = localStorage.getItem("keyword");
-    if (keyword || keyword != '') {
+    if (keyword) {
       this.keyword = keyword
-      this.foods = this.foodService.getByKeyword(keyword??'');
+      this.foodService.getByKeyword(keyword).subscribe(res => {
+        this.foods = res;
+      });
     } else {
-      this.foods = this.foodService.getAll();
+      this.foodService.getAll().subscribe(res => {
+        this.foods = res;
+      });
     }
   }
 
@@ -34,14 +38,16 @@ export class HomeComponent implements OnInit {
   }
 
   search() {
-    console.log(this.keyword)
     if (this.keyword) {
-      console.log(this.keyword)
       localStorage.setItem("keyword", this.keyword);
-      this.foods = this.foodService.getByKeyword(this.keyword);
+      this.foodService.getByKeyword(this.keyword).subscribe(res => {
+        this.foods = res;
+      });
     } else {
       localStorage.removeItem("keyword");
-      this.foods = this.foodService.getAll();
+      this.foodService.getAll().subscribe(res => {
+        this.foods = res;
+      });
     }
   }
 
