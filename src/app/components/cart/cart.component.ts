@@ -15,6 +15,7 @@ export class CartComponent implements OnInit {
               private toastr: ToastrService) { }
 
   cart: Cart = this.cartService.cart;
+  selectionList: Item[] = [];
 
   ngOnInit(): void {
 
@@ -29,6 +30,7 @@ export class CartComponent implements OnInit {
   }
 
   removeItem(item: Item) {
+    this.selectionList.filter(x => x != item);
     this.cartService.removeItem(item);
     if (!this.cart.totalQty) {
       this.router.navigateByUrl("/");
@@ -39,5 +41,27 @@ export class CartComponent implements OnInit {
 
   viewItem(item: Item) {
     this.router.navigateByUrl("/food/" + item.id);
+  }
+
+  get calculatePrice(): number {
+    return this.cart.totalQty;
+  }
+
+  payment() {
+
+  }
+
+  onSelect(item: Item) {
+    this.selectionList.some(x => x == item) ? this.selectionList = this.selectionList.filter(x => x != item) : this.selectionList.push(item);
+  }
+
+  isSelected(item: Item): boolean | null {
+    return this.selectionList.some(x => x == item) ? true : null;
+  }
+
+  get summary() {
+    return this.selectionList.reduce((sum, current) => {
+      return sum += current.priceAmount;
+    }, 0)
   }
 }

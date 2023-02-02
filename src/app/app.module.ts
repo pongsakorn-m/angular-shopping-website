@@ -13,6 +13,7 @@ import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { ToastContainerModule, ToastrModule } from 'ngx-toastr';
+import { HttpClientModule } from '@angular/common/http'
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { ToastContainerModule, ToastrModule } from 'ngx-toastr';
     BrowserAnimationsModule,
     ToastrModule.forRoot({ timeOut: 3000}),
     ToastContainerModule,
+    HttpClientModule
   ],
   entryComponents: [
     AddCartComponent

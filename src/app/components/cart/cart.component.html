@@ -24,6 +24,10 @@
 
               <h5 class="card-subtitle mb-2 text-muted">Total Item Price: {{item.priceAmount | currency}}</h5>
               <a class="btn btn-outline-danger" (click)="removeItem(item)"><i class="fa-solid fa-trash"></i> Remove</a>
+
+              <div class="input-group mt-3">
+                <input class="form-check-input" (change)="onSelect(item)" type="checkbox" [attr.checked]="isSelected(item)"/>
+              </div>
             </div>
           </div>
         </div>
@@ -39,3 +43,8 @@
     <h3>Not Found</h3>
   </div>
 </div>
+
+<footer id="footer" *ngIf="cart.totalQty">
+  <h3>{{ summary | currency }}</h3>
+  <button class="btn btn-light">Payment</button>
+</footer>
