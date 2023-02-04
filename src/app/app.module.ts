@@ -20,6 +20,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { ToolbarComponent } from './shared/components/toolbar/toolbar.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { PaymentComponent } from './components/payment/payment.component';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -66,6 +67,11 @@ export function tokenGetter() {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
       multi: true
     }
   ],
