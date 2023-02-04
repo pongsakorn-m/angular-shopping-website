@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 
 @Component({
@@ -9,8 +10,13 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class HeaderComponent {
 
-  constructor(public cartService: CartService) { }
+  constructor(public cartService: CartService, private authService: AuthService) { }
 
   cartQuantity: Observable<number> = this.cartService.getQuantity();
+  isAuthen: Observable<boolean> = this.authService.isAuthenticated();
+
+  logout() {
+    this.authService.logout();
+  }
 
 }

@@ -1,18 +1,16 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+<nav class="navbar navbar-expand-lg bg-danger bg-gradient text-white fixed-top">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" routerLink="/">My App!</a>
+    <a class="navbar-brand text-white" routerLink="/">Shopping Foods</a>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
       <ul class="navbar-nav me-auto mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/cart">Cart({{cartQuantity | async}})</a>
-        </li>
+
       </ul>
       <div class="d-flex justify-content-between">
-        <button class="btn btn-outline-success me-2" routerLink="/login">Login</button>
-        <button class="btn btn-outline-success me-2" routerLink="/logout">Logout</button>
+        <button class="btn btn-light me-2" *ngIf="(isAuthen | async)" routerLink="/cart">Cart({{cartQuantity | async}})</button>
+        <button class="btn btn-outline-light me-2" *ngIf="(isAuthen | async)" (click)="logout()">Logout</button>
       </div>
     </div>
   </div>

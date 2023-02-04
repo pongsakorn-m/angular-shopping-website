@@ -1,4 +1,5 @@
 <!-- Search -->
+<div class="row mt-5"></div>
 <div class="row d-flex justify-content-center m-3">
   <div class="col-6">
     <div class="input-group">
@@ -17,7 +18,7 @@
       <div class="card-body">
         <h5 class="card-title text-truncate">{{food.name}}</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{food.price | currency}}</h6>
-        <a routerLink="food/{{food.id}}" class="btn btn-secondary mt-1 me-1">More</a>
+        <a routerLink="/food/{{food.id}}" class="btn btn-secondary mt-1 me-1">More</a>
         <a (click)="addToCart(food)" class="btn btn-outline-primary mt-1"><i class="fa-solid fa-cart-plus"></i> Add to cart</a>
       </div>
     </div>

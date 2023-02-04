@@ -1,3 +1,5 @@
+<app-toolbar></app-toolbar>
+<div class="row mt-5"></div>
 <div *ngIf="cart.totalQty">
   <div class="row mb-3" *ngFor="let item of cart.items">
     <div class="d-flex justify-content-center" *ngIf="item">
@@ -5,7 +7,7 @@
         <div class="col-6">
           <img (click)="viewItem(item)" [src]="item.imageUrl" [alt]="item.name" class="rounded img-fluid cursor-pointer" alt="Responsive image">
         </div>
-        <div class="col-4">
+        <div class="col-6">
           <div class="card h-100">
             <div class="card-body">
               <h2 class="card-title">{{item.name}} </h2>
@@ -46,5 +48,5 @@
 
 <footer id="footer" *ngIf="cart.totalQty">
   <h3>{{ summary | currency }}</h3>
-  <button class="btn btn-light">Payment</button>
+  <button (click)="payment()" class="btn btn-light">Payment</button>
 </footer>

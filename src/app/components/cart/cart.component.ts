@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Cart, CartService, Item } from 'src/app/services/cart.service';
+import { PaymentComponent } from '../payment/payment.component';
 
 @Component({
   selector: 'app-cart',
@@ -12,7 +14,8 @@ export class CartComponent implements OnInit {
 
   constructor(private cartService: CartService,
               private router: Router,
-              private toastr: ToastrService) { }
+              private toastr: ToastrService,
+              private modal: NgbModal) { }
 
   cart: Cart = this.cartService.cart;
   selectionList: Item[] = [];
@@ -29,13 +32,15 @@ export class CartComponent implements OnInit {
     this.cartService.downQuantity(item);
   }
 
-  removeItem(item: Item) {
+  removeItem(item: Item, showToastr: boolean = false) {
     this.selectionList.filter(x => x != item);
     this.cartService.removeItem(item);
     if (!this.cart.totalQty) {
       this.router.navigateByUrl("/");
     } else {
-      this.toastr.success(item.name + "deleted successfully");
+      if (showToastr) {
+        this.toastr.success(item.name + "deleted successfully");
+      }
     }
   }
 
@@ -48,7 +53,21 @@ export class CartComponent implements OnInit {
   }
 
   payment() {
+    let modalRef = this.modal.open(PaymentComponent, {  });
+    modalRef.componentInstance.initialData = {
+      selected: this.selectionList
+    };
 
+    modalRef.result.then(((result: boolean) => {
+      console.log(result)
+      if (result) {
+        this.selectionList.forEach(selected => {
+          this.removeItem(selected, false);
+        })
+        this.selectionList = [];
+        this.toastr.success("Payment successfully.");
+      }
+    }));
   }
 
   onSelect(item: Item) {

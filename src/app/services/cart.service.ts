@@ -23,7 +23,7 @@ export class CartService {
   }
 
   public cart: Cart = new Cart();
-  private quantity = new BehaviorSubject<number>(this.cart.totalQty);
+  private quantity = new BehaviorSubject<number>(this.cart.items.length);
 
 
   public addItem(food: Food, quantity:number = 0) {
@@ -65,16 +65,16 @@ export class CartService {
     this.cart.totalQty = this.cart.items?.reduce((sum, current) => sum + current.qty, 0) ?? 0
     this.cart.totalAmount = this.cart.items?.reduce((sum, current) => sum + current.price, 0) ?? 0
     localStorage.setItem('cart', JSON.stringify(this.cart));
-    this.quantity.next(this.cart.totalQty);
+    this.quantity.next(this.cart.items.length);
   }
 
   public getQuantity()  {
     return this.quantity.asObservable().pipe((u) => {
       if (!!u) {
-        this.quantity.next(this.cart.totalQty)
+        this.quantity.next(this.cart.items.length)
         return u
       }
-      return of(this.cart.totalQty)
+      return of(this.cart.items.length)
     });
   }
 }
